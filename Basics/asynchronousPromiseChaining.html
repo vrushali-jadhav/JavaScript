@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Asynchronous JavaScript</title>
+</head>
+<body>
+    <h1>Asynchronous JavaScript</h1>
+    <script>
+        //This resolves the problem of callback hell
+        let Ids = [124,125,176];
+        const promiseVar = new Promise((resolve,reject) => {
+            setTimeout(() => {
+                resolve(Ids);
+            },1500);
+        });
+
+        const getRecipe = recID => {
+            return new Promise((resolve,reject) => {
+                setTimeout((id)=>{
+                    const recipe = {title: 'Fresh tomato pasta', publisher: 'Jonas'};
+                    resolve(`${id}: ${recipe.title}`);
+                },1500, recID);
+            });
+        }; 
+        
+         promiseVar 
+         .then(id => {
+            console.log(id);
+            return getRecipe(id[2]);
+        })
+        .then(recipe => {
+            console.log(recipe);
+        })
+         .catch((error)=>{
+             console.log(error);
+        });
+        
+    </script>
+</body>
+</html>
